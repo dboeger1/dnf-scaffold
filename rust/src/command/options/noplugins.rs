@@ -1,1 +1,1 @@
-pub const STR: &str = "noplugins";
+pub const NAME: &str = "noplugins";

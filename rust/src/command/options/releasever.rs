@@ -1,1 +1,2 @@
-pub const STR: &str = "releasever";
+pub const NAME: &str = "releasever";
+pub type Arg = String;

@@ -1,1 +1,2 @@
-pub const STR: &str = "enableplugin";
+pub const NAME: &str = "enableplugin";
+pub type Arg = String;

@@ -1,1 +1,1 @@
-pub const STR: &str = "cacheonly";
+pub const NAME: &str = "cacheonly";

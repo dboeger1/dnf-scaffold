@@ -1,1 +1,1 @@
-pub const STR: &str = "showduplicates";
+pub const NAME: &str = "showduplicates";

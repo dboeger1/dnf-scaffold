@@ -1,1 +1,1 @@
-pub const STR: &str = "6";
+pub const NAME: &str = "6";

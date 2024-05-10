@@ -1,1 +1,1 @@
-pub const STR: &str = "noautoremove";
+pub const NAME: &str = "noautoremove";

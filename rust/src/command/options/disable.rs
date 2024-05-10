@@ -1,1 +1,1 @@
-pub const STR: &str = "disable";
+pub const NAME: &str = "disable";

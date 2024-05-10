@@ -1,1 +1,2 @@
-pub const STR: &str = "randomwait";
+pub const NAME: &str = "randomwait";
+pub type Arg = u8;

@@ -1,1 +1,2 @@
-pub const STR: &str = "excludepkgs";
+pub const NAME: &str = "excludepkgs";
+pub type Arg = String;

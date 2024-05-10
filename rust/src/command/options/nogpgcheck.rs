@@ -1,1 +1,1 @@
-pub const STR: &str = "nogpgcheck";
+pub const NAME: &str = "nogpgcheck";

@@ -1,1 +1,1 @@
-pub const STR: &str = "best";
+pub const NAME: &str = "best";

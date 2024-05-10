@@ -1,1 +1,1 @@
-pub const STR: &str = "newpackage";
+pub const NAME: &str = "newpackage";

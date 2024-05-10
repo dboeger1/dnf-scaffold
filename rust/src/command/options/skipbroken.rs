@@ -1,1 +1,1 @@
-pub const STR: &str = "skipbroken";
+pub const NAME: &str = "skipbroken";

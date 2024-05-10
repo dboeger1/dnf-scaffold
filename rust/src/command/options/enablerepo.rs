@@ -1,1 +1,2 @@
-pub const STR: &str = "enablerepo";
+pub const NAME: &str = "enablerepo";
+pub type Arg = String;

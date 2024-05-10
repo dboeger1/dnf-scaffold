@@ -1,1 +1,1 @@
-pub const STR: &str = "bugfix";
+pub const NAME: &str = "bugfix";

@@ -1,1 +1,1 @@
-pub const STR: &str = "refresh";
+pub const NAME: &str = "refresh";

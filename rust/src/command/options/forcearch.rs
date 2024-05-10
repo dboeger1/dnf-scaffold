@@ -1,1 +1,2 @@
-pub const STR: &str = "forcearch";
+pub const NAME: &str = "forcearch";
+pub type Arg = String;

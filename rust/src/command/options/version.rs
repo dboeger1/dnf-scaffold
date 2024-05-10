@@ -1,1 +1,1 @@
-pub const STR: &str = "version";
+pub const NAME: &str = "version";

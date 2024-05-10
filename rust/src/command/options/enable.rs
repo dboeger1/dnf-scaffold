@@ -1,1 +1,1 @@
-pub const STR: &str = "enable";
+pub const NAME: &str = "enable";

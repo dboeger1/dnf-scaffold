@@ -1,1 +1,1 @@
-pub const STR: &str = "downloadonly";
+pub const NAME: &str = "downloadonly";

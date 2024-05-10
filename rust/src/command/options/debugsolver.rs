@@ -1,1 +1,1 @@
-pub const STR: &str = "debugsolver";
+pub const NAME: &str = "debugsolver";

@@ -1,1 +1,2 @@
-pub const STR: &str = "setopt";
+pub const NAME: &str = "setopt";
+pub type Arg = String;

@@ -1,1 +1,5 @@
-pub const STR: &str = "debuglevel";
+use crate::types::debug_level::DebugLevel;
+
+
+pub const NAME: &str = "debuglevel";
+pub type Arg = DebugLevel;

@@ -2,7 +2,7 @@ pub mod options;
 pub mod subcommand;
 
 
-use options::Options;
+use options::CommandOptions;
 use std::fmt::Display;
 use subcommand::Subcommand;
 
@@ -10,7 +10,7 @@ use subcommand::Subcommand;
 #[derive(Default)]
 pub struct Command {
     pub subcommand: Option<Subcommand>,
-    pub options: Option<Options>,
+    pub options: Option<CommandOptions>,
 }
 
 impl Display for Command {
