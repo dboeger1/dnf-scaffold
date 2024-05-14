@@ -1,1 +1,1 @@
-pub const STR: &str = "distro-sync";
+pub const NAME: &str = "distro-sync";

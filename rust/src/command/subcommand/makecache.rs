@@ -1,1 +1,1 @@
-pub const STR: &str = "makecache";
+pub const NAME: &str = "makecache";

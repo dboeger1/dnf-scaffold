@@ -1,1 +1,1 @@
-pub const STR: &str = "repository-packages";
+pub const NAME: &str = "repository-packages";

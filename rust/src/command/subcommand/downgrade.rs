@@ -1,1 +1,1 @@
-pub const STR: &str = "downgrade";
+pub const NAME: &str = "downgrade";

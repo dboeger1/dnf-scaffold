@@ -1,1 +1,1 @@
-pub const STR: &str = "install";
+pub const NAME: &str = "install";

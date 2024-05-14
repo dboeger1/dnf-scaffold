@@ -1,1 +1,1 @@
-pub const STR: &str = "deplist";
+pub const NAME: &str = "deplist";

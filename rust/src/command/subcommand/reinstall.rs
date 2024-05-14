@@ -1,1 +1,1 @@
-pub const STR: &str = "reinstall";
+pub const NAME: &str = "reinstall";

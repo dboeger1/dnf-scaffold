@@ -1,1 +1,1 @@
-pub const STR: &str = "upgrade-minimal";
+pub const NAME: &str = "upgrade-minimal";

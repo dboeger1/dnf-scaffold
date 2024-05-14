@@ -1,1 +1,1 @@
-pub const STR: &str = "repoquery";
+pub const NAME: &str = "repoquery";

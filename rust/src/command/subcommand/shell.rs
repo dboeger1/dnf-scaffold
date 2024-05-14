@@ -1,1 +1,1 @@
-pub const STR: &str = "shell";
+pub const NAME: &str = "shell";

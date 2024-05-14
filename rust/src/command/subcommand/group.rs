@@ -1,1 +1,1 @@
-pub const STR: &str = "group";
+pub const NAME: &str = "group";

@@ -1,1 +1,1 @@
-pub const STR: &str = "check-update";
+pub const NAME: &str = "check-update";
