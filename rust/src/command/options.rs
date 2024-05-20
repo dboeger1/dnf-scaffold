@@ -1,96 +1,50 @@
-pub mod advisory;
-pub mod allowerasing;
-pub mod assumeno;
-pub mod assumeyes;
-pub mod best;
-pub mod bugfix;
-pub mod bz;
-pub mod cacheonly;
-pub mod color;
-pub mod comment;
-pub mod config;
-pub mod cve;
-pub mod debuglevel;
-pub mod debugsolver;
-pub mod disable;
-pub mod disableexcludes;
-pub mod disableplugin;
-pub mod disablerepo;
-pub mod downloaddir;
-pub mod downloadonly;
-pub mod enable;
-pub mod enableplugin;
-pub mod enablerepo;
-pub mod enhancement;
-pub mod errorlevel;
-pub mod exclude;
-pub mod excludepkgs;
-pub mod forcearch;
-pub mod help;
-pub mod installroot;
-pub mod ipv4;
-pub mod ipv6;
-pub mod newpackage;
-pub mod noautoremove;
-pub mod nobest;
-pub mod nodocs;
-pub mod nogpgcheck;
-pub mod noplugins;
-pub mod obsoletes;
-pub mod quiet;
-pub mod randomwait;
-pub mod refresh;
-pub mod releasever;
-pub mod repo;
-pub mod repofrompath;
-pub mod rpmverbosity;
-pub mod secseverity;
-pub mod security;
-pub mod setopt;
-pub mod showduplicates;
-pub mod skipbroken;
-pub mod verbose;
-pub mod version;
-
-
-use std::fmt::Display;
+use crate::{
+    Color,
+    DebugLevel,
+    ErrorLevel,
+    Exclude,
+    error::Error,
+};
+use std::{
+    fmt::Display,
+    path::PathBuf,
+};
 use strum::IntoEnumIterator;
 use strum_macros::EnumIter;
 
 
-
 #[derive(Clone, EnumIter)]
 pub enum CommandOption {
-    Advisory(advisory::Arg),
+    Advisory(Arg<String>),
     Allowerasing,
     Assumeno,
     Assumeyes,
     Best,
     Bugfix,
-    Bz(bz::Arg),
+    Bz(Arg<String>),
     Cacheonly,
-    Color(color::Arg),
-    Comment(comment::Arg),
-    Config(config::Arg),
-    Cve(cve::Arg),
-    Debuglevel(debuglevel::Arg),
+    Color(Arg<Color>),
+    Comment(Arg<String>),
+    Config(Arg<PathBuf>),
+    Cve(Arg<String>),
+    Debuglevel(Arg<DebugLevel>),
     Debugsolver,
     Disable,
-    Disableexcludes(disableexcludes::Arg),
-    Disableplugin(disableplugin::Arg),
-    Disablerepo(disablerepo::Arg),
-    Downloaddir(downloaddir::Arg),
+    Disableexcludes(Arg<Exclude>),
+    Disableplugin(Arg<String>),
+    Disablerepo(Arg<String>),
+    Downloaddir(Arg<PathBuf>),
     Downloadonly,
     Enable,
-    Enableplugin(enableplugin::Arg),
-    Enablerepo(enablerepo::Arg),
+    Enableplugin(Arg<String>),
+    Enablerepo(Arg<String>),
     Enhancement,
-    Errorlevel(errorlevel::Arg),
-    Exclude(exclude::Arg),
-    Excludepkgs(excludepkgs::Arg),
-    Forcearch(forcearch::Arg),
+    Errorlevel(Arg<ErrorLevel>),
+    Exclude(Arg<String>),
+    Excludepkgs(Arg<String>),
+    Forcearch(Arg<String>),
     Help,
-    Installroot(installroot::Arg),
+    Installroot(Arg<PathBuf>),
     Ipv4,
     Ipv6,
     Newpackage,
@@ -101,15 +55,15 @@ pub enum CommandOption {
     Noplugins,
     Obsoletes,
     Quiet,
-    Randomwait(randomwait::Arg),
+    Randomwait(Arg<u8>),
     Refresh,
-    Releasever(releasever::Arg),
-    Repo(repo::Arg),
-    Repofrompath(repofrompath::Arg),
-    Rpmverbosity(rpmverbosity::Arg),
-    Secseverity(secseverity::Arg),
+    Releasever(Arg<String>),
+    Repo(Arg<String>),
+    Repofrompath(Arg<String>),
+    Rpmverbosity(Arg<String>),
+    Secseverity(Arg<String>),
     Security,
-    Setopt(setopt::Arg),
+    Setopt(Arg<String>),
     Showduplicates,
     Skipbroken,
     Verbose,
@@ -117,100 +71,161 @@ pub enum CommandOption {
 }
 
 impl CommandOption {
-    const fn name(&self) -> &str {
+    pub const fn name(&self) -> &str {
         match self {
-            Self::Advisory(_) => advisory::NAME,
-            Self::Allowerasing => allowerasing::NAME,
-            Self::Assumeno => assumeno::NAME,
-            Self::Assumeyes => assumeyes::NAME,
-            Self::Best => best::NAME,
-            Self::Bugfix => bugfix::NAME,
-            Self::Bz(_) => bz::NAME,
-            Self::Cacheonly => cacheonly::NAME,
-            Self::Color(_) => color::NAME,
-            Self::Comment(_) => comment::NAME,
-            Self::Config(_) => config::NAME,
-            Self::Cve(_) => cve::NAME,
-            Self::Debuglevel(_) => debuglevel::NAME,
-            Self::Debugsolver => debugsolver::NAME,
-            Self::Disable => disable::NAME,
-            Self::Disableexcludes(_) => disableexcludes::NAME,
-            Self::Disableplugin(_) => disableplugin::NAME,
-            Self::Disablerepo(_) => disablerepo::NAME,
-            Self::Downloaddir(_) => downloaddir::NAME,
-            Self::Downloadonly => downloadonly::NAME,
-            Self::Enable => enable::NAME,
-            Self::Enableplugin(_) => enableplugin::NAME,
-            Self::Enablerepo(_) => enablerepo::NAME,
-            Self::Enhancement => enhancement::NAME,
-            Self::Errorlevel(_) => errorlevel::NAME,
-            Self::Exclude(_) => exclude::NAME,
-            Self::Excludepkgs(_) => excludepkgs::NAME,
-            Self::Forcearch(_) => forcearch::NAME,
-            Self::Help => help::NAME,
-            Self::Installroot(_) => installroot::NAME,
-            Self::Ipv4 => ipv4::NAME,
-            Self::Ipv6 => ipv6::NAME,
-            Self::Newpackage => newpackage::NAME,
-            Self::Noautoremove => noautoremove::NAME,
-            Self::Nobest => nobest::NAME,
-            Self::Nodocs => nodocs::NAME,
-            Self::Nogpgcheck => nogpgcheck::NAME,
-            Self::Noplugins => noplugins::NAME,
-            Self::Obsoletes => obsoletes::NAME,
-            Self::Quiet => quiet::NAME,
-            Self::Randomwait(_) => randomwait::NAME,
-            Self::Refresh => refresh::NAME,
-            Self::Releasever(_) => releasever::NAME,
-            Self::Repo(_) => repo::NAME,
-            Self::Repofrompath(_) => repofrompath::NAME,
-            Self::Rpmverbosity(_) => rpmverbosity::NAME,
-            Self::Secseverity(_) => secseverity::NAME,
-            Self::Security => security::NAME,
-            Self::Setopt(_) => setopt::NAME,
-            Self::Showduplicates => showduplicates::NAME,
-            Self::Skipbroken => skipbroken::NAME,
-            Self::Verbose => verbose::NAME,
-            Self::Version => version::NAME,
+            Self::Advisory(_) => "advisory",
+            Self::Allowerasing => "allowerasing",
+            Self::Assumeno => "assumeno",
+            Self::Assumeyes => "assumeyes",
+            Self::Best => "best",
+            Self::Bugfix => "bugfix",
+            Self::Bz(_) => "bz",
+            Self::Cacheonly => "cacheonly",
+            Self::Color(_) => "color",
+            Self::Comment(_) => "comment",
+            Self::Config(_) => "config",
+            Self::Cve(_) => "cve",
+            Self::Debuglevel(_) => "debuglevel",
+            Self::Debugsolver => "debugsolver",
+            Self::Disable => "disable",
+            Self::Disableexcludes(_) => "disableexcludes",
+            Self::Disableplugin(_) => "disableplugin",
+            Self::Disablerepo(_) => "disablerepo",
+            Self::Downloaddir(_) => "downloaddir",
+            Self::Downloadonly => "downloadonly",
+            Self::Enable => "enable",
+            Self::Enableplugin(_) => "enableplugin",
+            Self::Enablerepo(_) => "enablerepo",
+            Self::Enhancement => "enhancement",
+            Self::Errorlevel(_) => "errorlevel",
+            Self::Exclude(_) => "exclude",
+            Self::Excludepkgs(_) => "excludepkgs",
+            Self::Forcearch(_) => "forcearch",
+            Self::Help => "help",
+            Self::Installroot(_) => "installroot",
+            Self::Ipv4 => "4",
+            Self::Ipv6 => "6",
+            Self::Newpackage => "newpackage",
+            Self::Noautoremove => "noautoremove",
+            Self::Nobest => "nobest",
+            Self::Nodocs => "nodocs",
+            Self::Nogpgcheck => "nogpgcheck",
+            Self::Noplugins => "noplugins",
+            Self::Obsoletes => "obsoletes",
+            Self::Quiet => "quiet",
+            Self::Randomwait(_) => "randomwait",
+            Self::Refresh => "refresh",
+            Self::Releasever(_) => "releasever",
+            Self::Repo(_) => "repo",
+            Self::Repofrompath(_) => "repofrompath",
+            Self::Rpmverbosity(_) => "rpmverbosity",
+            Self::Secseverity(_) => "secseverity",
+            Self::Security => "security",
+            Self::Setopt(_) => "setopt",
+            Self::Showduplicates => "showduplicates",
+            Self::Skipbroken => "skipbroken",
+            Self::Verbose => "verbose",
+            Self::Version => "version",
         }
     }
 
     fn arg(&self) -> Option<String> {
         match self {
-            Self::Advisory(arg) => Some(arg.to_string()),
-            Self::Color(arg) => Some(arg.to_string()),
-            Self::Comment(arg) => Some(arg.to_string()),
-            Self::Config(arg) => Some(arg.to_string_lossy().to_string()),
-            Self::Cve(arg) => Some(arg.to_string()),
-            Self::Debuglevel(arg) => Some(arg.to_string()),
-            Self::Disableexcludes(arg) => Some(arg.to_string()),
-            Self::Disableplugin(arg) => Some(arg.to_string()),
-            Self::Disablerepo(arg) => Some(arg.to_string()),
-            Self::Downloaddir(arg) => Some(arg.to_string_lossy().to_string()),
-            Self::Enableplugin(arg) => Some(arg.to_string()),
-            Self::Enablerepo(arg) => Some(arg.to_string()),
-            Self::Errorlevel(arg) => Some(arg.to_string()),
-            Self::Exclude(arg) => Some(arg.to_string()),
-            Self::Excludepkgs(arg) => Some(arg.to_string()),
-            Self::Forcearch(arg) => Some(arg.to_string()),
-            Self::Installroot(arg) => Some(arg.to_string_lossy().to_string()),
-            Self::Randomwait(arg) => Some(arg.to_string()),
-            Self::Releasever(arg) => Some(arg.to_string()),
-            Self::Repo(arg) => Some(arg.to_string()),
-            //Self::Repofrompath()(arg) => Some(arg.to_string()),
-            Self::Rpmverbosity(arg) => Some(arg.to_string()),
-            Self::Secseverity(arg) => Some(arg.to_string()),
+            // String
+            Self::Advisory(arg) |
+            Self::Bz(arg) |
+            Self::Comment(arg) |
+            Self::Cve(arg) |
+            Self::Disableplugin(arg) |
+            Self::Disablerepo(arg) |
+            Self::Enableplugin(arg) |
+            Self::Enablerepo(arg) |
+            Self::Exclude(arg) |
+            Self::Excludepkgs(arg) |
+            Self::Forcearch(arg) |
+            Self::Releasever(arg) |
+            Self::Repo(arg) |
+            Self::Repofrompath(arg) |
+            Self::Rpmverbosity(arg) |
+            Self::Secseverity(arg) |
             Self::Setopt(arg) => Some(arg.to_string()),
+            // PathBuf
+            Self::Config(arg) |
+            Self::Downloaddir(arg) |
+            Self::Installroot(arg) => Some(
+                arg.value.to_string_lossy().to_string(),
+            ),
+            // Color
+            Self::Color(arg) => Some(arg.to_string()),
+            // DebugLevel
+            Self::Debuglevel(arg) => Some(arg.to_string()),
+            // ErrorLevel
+            Self::Errorlevel(arg) => Some(arg.to_string()),
+            // Exclude
+            Self::Disableexcludes(arg) => Some(arg.to_string()),
+            // u8
+            Self::Randomwait(arg) => Some(arg.to_string()),
             _ => None,
         }
     }
 }
+
 
 impl Display for CommandOption {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "--{}", self.name())?;
         if let Some(arg) = self.arg() {
             write!(f, " {arg}")?;
+        }
+
+        Ok(())
+    }
+}
+
+
+pub trait Validate {
+    type ValueType;
+
+    fn validate(_value: &Self::ValueType) -> Result<(), Error> {
+        Ok(())
+    }
+}
+
+
+#[derive(Clone, Default)]
+pub struct Arg<T> {
+    value: T,
+}
+
+impl<T> Arg<T>
+where
+    T:
+        Validate<ValueType = T> +
+        Display,
+{
+    pub fn new(value: T) -> Result<Self, Error> {
+        T::validate(&value)?;
+        Ok(Self {
+            value,
+        })
+    }
+}
+
+impl<T: Display> Display for Arg<T> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.value)
+    }
+}
+
+impl Validate for String {
+    type ValueType = Self;
+
+    fn validate(value: &Self::ValueType) -> Result<(), Error> {
+        if value.is_empty() {
+            return Err(Error {
+                message: "Empty string.".to_string(),
+                source: None,
+            });
         }
 
         Ok(())
