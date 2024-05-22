@@ -53,7 +53,10 @@ pub mod verbose;
 pub mod version;
 
 
-use crate::{Error, Validate};
+use crate::{
+    CommandOptionArgInternal,
+    Error,
+};
 use std::fmt::Display;
 use strum_macros::{
     EnumDiscriminants,
@@ -124,7 +127,7 @@ impl CommandOption {
         CommandOptionDiscriminants::from(self).name()
     }
 
-    fn arg(&self) -> Option<String> {
+    pub fn arg(&self) -> Option<String> {
         match self {
             Self::Advisory(arg) => Some(arg.to_string()),
             Self::Bz(arg) => Some(arg.to_string()),
@@ -155,127 +158,127 @@ impl CommandOption {
         }
     }
 
-    pub fn new_advisory(value: advisory::ArgType) -> Result<Self, Error> {
+    pub fn new_advisory(value: advisory::ValueType) -> Result<Self, Error> {
         let arg = advisory::Arg::new(value)?;
         Ok(Self::Advisory(arg))
     }
 
-    pub fn new_bz(value: bz::ArgType) -> Result<Self, Error> {
+    pub fn new_bz(value: bz::ValueType) -> Result<Self, Error> {
         let arg = bz::Arg::new(value)?;
         Ok(Self::Bz(arg))
     }
 
-    pub fn new_color(value: color::ArgType) -> Result<Self, Error> {
+    pub fn new_color(value: color::ValueType) -> Result<Self, Error> {
         let arg = color::Arg::new(value)?;
         Ok(Self::Color(arg))
     }
 
-    pub fn new_comment(value: comment::ArgType) -> Result<Self, Error> {
+    pub fn new_comment(value: comment::ValueType) -> Result<Self, Error> {
         let arg = comment::Arg::new(value)?;
         Ok(Self::Comment(arg))
     }
 
-    pub fn new_config(value: config::ArgType) -> Result<Self, Error> {
+    pub fn new_config(value: config::ValueType) -> Result<Self, Error> {
         let arg = config::Arg::new(value)?;
         Ok(Self::Config(arg))
     }
 
-    pub fn new_cve(value: cve::ArgType) -> Result<Self, Error> {
+    pub fn new_cve(value: cve::ValueType) -> Result<Self, Error> {
         let arg = cve::Arg::new(value)?;
         Ok(Self::Cve(arg))
     }
 
-    pub fn new_debuglevel(value: debuglevel::ArgType) -> Result<Self, Error> {
+    pub fn new_debuglevel(value: debuglevel::ValueType) -> Result<Self, Error> {
         let arg = debuglevel::Arg::new(value)?;
         Ok(Self::Debuglevel(arg))
     }
 
-    pub fn new_disableexcludes(value: disableexcludes::ArgType) -> Result<Self, Error> {
+    pub fn new_disableexcludes(value: disableexcludes::ValueType) -> Result<Self, Error> {
         let arg = disableexcludes::Arg::new(value)?;
         Ok(Self::Disableexcludes(arg))
     }
 
-    pub fn new_disableplugin(value: disableplugin::ArgType) -> Result<Self, Error> {
+    pub fn new_disableplugin(value: disableplugin::ValueType) -> Result<Self, Error> {
         let arg = disableplugin::Arg::new(value)?;
         Ok(Self::Disableplugin(arg))
     }
 
-    pub fn new_disablerepo(value: disablerepo::ArgType) -> Result<Self, Error> {
+    pub fn new_disablerepo(value: disablerepo::ValueType) -> Result<Self, Error> {
         let arg = disablerepo::Arg::new(value)?;
         Ok(Self::Disablerepo(arg))
     }
 
-    pub fn new_downloaddir(value: downloaddir::ArgType) -> Result<Self, Error> {
+    pub fn new_downloaddir(value: downloaddir::ValueType) -> Result<Self, Error> {
         let arg = downloaddir::Arg::new(value)?;
         Ok(Self::Downloaddir(arg))
     }
 
-    pub fn new_enableplugin(value: enableplugin::ArgType) -> Result<Self, Error> {
+    pub fn new_enableplugin(value: enableplugin::ValueType) -> Result<Self, Error> {
         let arg = enableplugin::Arg::new(value)?;
         Ok(Self::Enableplugin(arg))
     }
 
-    pub fn new_enablerepo(value: enablerepo::ArgType) -> Result<Self, Error> {
+    pub fn new_enablerepo(value: enablerepo::ValueType) -> Result<Self, Error> {
         let arg = enablerepo::Arg::new(value)?;
         Ok(Self::Enablerepo(arg))
     }
 
-    pub fn new_errorlevel(value: errorlevel::ArgType) -> Result<Self, Error> {
+    pub fn new_errorlevel(value: errorlevel::ValueType) -> Result<Self, Error> {
         let arg = errorlevel::Arg::new(value)?;
         Ok(Self::Errorlevel(arg))
     }
 
-    pub fn new_exclude(value: exclude::ArgType) -> Result<Self, Error> {
+    pub fn new_exclude(value: exclude::ValueType) -> Result<Self, Error> {
         let arg = exclude::Arg::new(value)?;
         Ok(Self::Exclude(arg))
     }
 
-    pub fn new_excludepkgs(value: excludepkgs::ArgType) -> Result<Self, Error> {
+    pub fn new_excludepkgs(value: excludepkgs::ValueType) -> Result<Self, Error> {
         let arg = excludepkgs::Arg::new(value)?;
         Ok(Self::Excludepkgs(arg))
     }
 
-    pub fn new_forcearch(value: forcearch::ArgType) -> Result<Self, Error> {
+    pub fn new_forcearch(value: forcearch::ValueType) -> Result<Self, Error> {
         let arg = forcearch::Arg::new(value)?;
         Ok(Self::Forcearch(arg))
     }
 
-    pub fn new_installroot(value: installroot::ArgType) -> Result<Self, Error> {
+    pub fn new_installroot(value: installroot::ValueType) -> Result<Self, Error> {
         let arg = installroot::Arg::new(value)?;
         Ok(Self::Installroot(arg))
     }
 
-    pub fn new_randomwait(value: randomwait::ArgType) -> Result<Self, Error> {
+    pub fn new_randomwait(value: randomwait::ValueType) -> Result<Self, Error> {
         let arg = randomwait::Arg::new(value)?;
         Ok(Self::Randomwait(arg))
     }
 
-    pub fn new_releasever(value: releasever::ArgType) -> Result<Self, Error> {
+    pub fn new_releasever(value: releasever::ValueType) -> Result<Self, Error> {
         let arg = releasever::Arg::new(value)?;
         Ok(Self::Releasever(arg))
     }
 
-    pub fn new_repo(value: repo::ArgType) -> Result<Self, Error> {
+    pub fn new_repo(value: repo::ValueType) -> Result<Self, Error> {
         let arg = repo::Arg::new(value)?;
         Ok(Self::Repo(arg))
     }
 
-    pub fn new_repofrompath(value: repofrompath::ArgType) -> Result<Self, Error> {
+    pub fn new_repofrompath(value: repofrompath::ValueType) -> Result<Self, Error> {
         let arg = repofrompath::Arg::new(value)?;
         Ok(Self::Repofrompath(arg))
     }
 
-    pub fn new_rpmverbosity(value: rpmverbosity::ArgType) -> Result<Self, Error> {
+    pub fn new_rpmverbosity(value: rpmverbosity::ValueType) -> Result<Self, Error> {
         let arg = rpmverbosity::Arg::new(value)?;
         Ok(Self::Rpmverbosity(arg))
     }
 
-    pub fn new_secseverity(value: secseverity::ArgType) -> Result<Self, Error> {
+    pub fn new_secseverity(value: secseverity::ValueType) -> Result<Self, Error> {
         let arg = secseverity::Arg::new(value)?;
         Ok(Self::Secseverity(arg))
     }
 
-    pub fn new_setopt(value: setopt::ArgType) -> Result<Self, Error> {
+    pub fn new_setopt(value: setopt::ValueType) -> Result<Self, Error> {
         let arg = setopt::Arg::new(value)?;
         Ok(Self::Setopt(arg))
     }

@@ -1,6 +1,7 @@
 use crate::{
+    CommandOptionArg,
+    CommandOptionArgInternal,
     Error,
-    Validate,
 };
 use std::fmt::Display;
 
@@ -9,12 +10,18 @@ pub const NAME: &str = "secseverity";
 
 
 #[derive(Clone)]
-pub struct Arg(ArgType);
-pub(crate) type ArgType = String;
+pub struct Arg(ValueType);
+pub(crate) type ValueType = String;
 
-impl Validate for Arg {
-    type ValueType = ArgType;
+impl CommandOptionArg for Arg {
+    type ValueType = ValueType;
 
+    fn value(&self) -> Self::ValueType {
+        self.0.clone()
+    }
+}
+
+impl CommandOptionArgInternal for Arg {
     fn new_infallible(value: Self::ValueType) -> Self {
         Self(value)
     }

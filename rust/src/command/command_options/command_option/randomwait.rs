@@ -1,4 +1,7 @@
-use crate::Validate;
+use crate::{
+    CommandOptionArg,
+    CommandOptionArgInternal,
+};
 use std::fmt::Display;
 
 
@@ -6,12 +9,18 @@ pub const NAME: &str = "randomwait";
 
 
 #[derive(Clone)]
-pub struct Arg(ArgType);
-pub(crate) type ArgType = u8;
+pub struct Arg(ValueType);
+pub(crate) type ValueType = u8;
 
-impl Validate for Arg {
-    type ValueType = ArgType;
+impl CommandOptionArg for Arg {
+    type ValueType = ValueType;
 
+    fn value(&self) -> Self::ValueType {
+        self.0.clone()
+    }
+}
+
+impl CommandOptionArgInternal for Arg {
     fn new_infallible(value: Self::ValueType) -> Self {
         Self(value)
     }

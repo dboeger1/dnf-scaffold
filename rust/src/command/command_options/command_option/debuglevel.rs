@@ -1,6 +1,7 @@
 use crate::{
+    CommandOptionArg,
+    CommandOptionArgInternal,
     DebugLevel,
-    Validate,
 };
 use std::fmt::Display;
 
@@ -9,12 +10,18 @@ pub const NAME: &str = "debuglevel";
 
 
 #[derive(Clone)]
-pub struct Arg(ArgType);
-pub(crate) type ArgType = DebugLevel;
+pub struct Arg(ValueType);
+pub(crate) type ValueType = DebugLevel;
 
-impl Validate for Arg {
-    type ValueType = ArgType;
+impl CommandOptionArg for Arg {
+    type ValueType = ValueType;
 
+    fn value(&self) -> Self::ValueType {
+        self.0.clone()
+    }
+}
+
+impl CommandOptionArgInternal for Arg {
     fn new_infallible(value: Self::ValueType) -> Self {
         Self(value)
     }
