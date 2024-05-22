@@ -1,6 +1,9 @@
 use dnf_scaffold::{
     command::{
-        options::{Arg, CommandOption, CommandOptions},
+        command_options::{
+            CommandOptions,
+            command_option::CommandOption,
+        },
         subcommand::Subcommand,
     },
     Command,
@@ -9,11 +12,16 @@ use dnf_scaffold::{
 pub fn main() {
     let mut command_options = CommandOptions::new();
 
-    let arg = Arg::new("advisory_arg".to_string()).unwrap();
-    command_options.set(&CommandOption::Advisory(arg));
-
-    let arg = Arg::new("bz_arg".to_string()).unwrap();
-    command_options.set(&CommandOption::Bz(arg));
+    command_options.set(
+        &CommandOption::new_advisory(
+            "advisory_arg".to_string(),
+        ).unwrap(),
+    );
+    command_options.set(
+        &CommandOption::new_bz(
+            "bz_arg".to_string(),
+        ).unwrap(),
+    );
 
     println!("options: \"{command_options}\"");
 

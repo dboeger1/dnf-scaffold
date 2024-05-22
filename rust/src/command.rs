@@ -1,8 +1,8 @@
-pub mod options;
+pub mod command_options;
 pub mod subcommand;
 
 
-use options::CommandOptions;
+use command_options::CommandOptions;
 use std::fmt::Display;
 use subcommand::Subcommand;
 
